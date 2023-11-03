@@ -1,69 +1,61 @@
-##########
-## VPC1 ##
-##########
 
 vpcs:
   # VPC 1
-- ec2_vpc_name_1: VPC1
-  ec2_vpc_region_1: us-east-1
-  ec2_vpc_cidr_1: 10.1.0.0/16
+- ec2_vpc_name: VPC1
+  ec2_vpc_region: us-east-1
+  ec2_vpc_cidr: 10.1.0.0/16
   # Subnet 1
-  ec2_subnet_name_1: Subnet1
-  ec2_subnet_cidr_1: 10.1.0.0/24
+  ec2_subnet_name: Subnet1
+  ec2_subnet_cidr: 10.1.0.0/24
   # IGW 1
-  ec2_igw_name_1: IGW1
+  ec2_igw_name: IGW1
   # Route Table 1
-  ec2_rt_name_1: RT1
+  ec2_rt_name: RT1
   # SG 1
-  ec2_sg_name_1: SG1
+  ec2_sg_name: SG1
   # RHEL Open ports 1
-  ec2_sg_openports_1:
+  ec2_sg_openports:
     - 80
     - 443
     - 22
   # AMI 1
-  ec2_image_name_1: RHEL-8.6.0_HVM-*x86_64*
+  ec2_image_name: RHEL-8.6.0_HVM-*x86_64*
   # Flavour 1 
-  ec2_flavor_name_1: t2.micro
+  ec2_flavor_name: t2.micro
   # Disk 1
-  ec2_disk_size_1: 20
-  ec2_ebs_name_1: /dev/sda1
+  ec2_disk_size: 20
+  ec2_ebs_name: /dev/sda1
   # Key Pair 1
-  ec2_key_name_1: "KeyPair-Virginia"
+  ec2_key_name: "KeyPair-Virginia"
   # Instance 1
-  ec2_instance_name_1: rhel-1
-
-
-  ##########
-  ## VPC2 ##
-  ##########
+  ec2_instance_name: rhel-1
 
   # VPC 2
-  ec2_vpc_name_2: VPC1
-  ec2_vpc_region_2: eu-central-1
-  ec2_vpc_cidr_2: 10.2.0.0/16
+- ec2_vpc_name: VPC2
+  ec2_vpc_region: us-east-1
+  ec2_vpc_cidr: 10.2.0.0/16
   # Subnet 2
-  ec2_subnet_name_2: Subnet1
-  ec2_subnet_cidr_2: 10.2.0.0/24
+  ec2_subnet_name: Subnet2
+  ec2_subnet_cidr: 10.2.0.0/24
   # IGW 2
-  ec2_igw_name_2: IGW2
+  ec2_igw_name: IGW2
   # Route Table 2
-  ec2_rt_name_2: RT2
+  ec2_rt_name: RT2
   # SG 2
-  ec2_sg_name_2: SG2
-  # RHEL Open ports 1
-  ec2_sg_openports_1:
+  ec2_sg_name: SG2
+  # RHEL Open ports 2
+  ec2_sg_openports:
     - 80
     - 443
     - 22
   # AMI 2
-  ec2_image_name_2: RHEL-8.6.0_HVM-*x86_64*
+  ec2_image_name: RHEL-8.6.0_HVM-*x86_64*
   # Flavour 2 
-  ec2_flavor_name_2: t2.micro
+  ec2_flavor_name: t2.micro
   # Disk 2
-  ec2_disk_size_2: 20
-  ec2_ebs_name_2: /dev/sda1
+  ec2_disk_size: 20
+  ec2_ebs_name: /dev/sda1
   # Key Pair 2
-  ec2_key_name_2: "KeyPair-Virginia"
+  ec2_key_name: "KeyPair-Virginia"
   # Instance 2
-  ec2_instance_name_2: rhel-2
+  ec2_instance_name: rhel-2
