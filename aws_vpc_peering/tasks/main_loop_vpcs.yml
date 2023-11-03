@@ -64,9 +64,9 @@
     region: "{{ item.ec2_vpc_region }}"
   register: ami_find
 
-- name: Create RHEL instance {{ item.ec2_instance_name }}
+- name: Create RHEL instance "{{ ami_find.images[-1].image_id | default('') }}
   amazon.aws.ec2_instance:
-    image_id: "{{ ami_find.images[-].image_id | default('') }}"
+    image_id: "{{ ami_find.images[-1].image_id | default('') }}"
     instance_type: "{{ item.ec2_flavor_name }}"
     security_group: "{{ item.ec2_sg_name }}"
     name: "{{ item.ec2_instance_name }}"
