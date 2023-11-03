@@ -40,7 +40,7 @@
       - "{{ subnet_1.subnet.id }}"
     routes:
       - dest: 0.0.0.0/0
-        gateway_id: "{{ igw1.gateway_id_1 }}"
+        gateway_id: "{{ igw_1.gateway_id_1 }}"
 
 - name: Create Security Group
   amazon.aws.ec2_group:
