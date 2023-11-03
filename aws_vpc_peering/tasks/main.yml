@@ -3,3 +3,26 @@
 - name: Loop for VPCs creation
   include_tasks: main_loop_vpcs.yml
   loop: "{{ vpcs }}"
+
+- name: Query VPCs {{ vpcs[0].ec2_vpc_name }}
+  amazon.aws.ec2_vpc_net_info:
+    region: "{{ vpcs[0].ec2_vpc_region }}"
+    filters:
+      "tag:name": "{{ vpcs[0].ec2_vpc_name }}"
+  register: vpc1
+
+  - name: Query VPCs {{ vpcs[1].ec2_vpc_name }}
+  amazon.aws.ec2_vpc_net_info:
+    region: "{{ vpcs[1].ec2_vpc_region }}"
+    filters:
+      "tag:name": "{{ vpcs[1].ec2_vpc_name }}"
+  register: vpc2
+
+- name: Create VPC peering request
+  community.aws.ec2_vpc_peer:
+    region: "{{ vpcs[0].ec2_vpc_region }}"
+    peer_region: "{{ vpcs[1].ec2_vpc_region }}"
+    vpc_id: "{{ vpc1.vpcs[0].id }}"
+    peer_vpc_id: "{{ vpc2.vpcs[0].id }}"
+    state: present
+  register: vpc_peering_request
