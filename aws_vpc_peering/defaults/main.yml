@@ -4,7 +4,7 @@
 
 # VPC 1
 ec2_vpc_name_1: VPC1
-ec2_vpc_region_1: eu-central-1
+ec2_vpc_region_1: us-east-1
 ec2_vpc_cidr_1: 10.1.0.0/16
 # Subnet 1
 ec2_subnet_name_1: Subnet1
