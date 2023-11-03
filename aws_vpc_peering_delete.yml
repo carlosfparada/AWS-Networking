@@ -3,5 +3,5 @@
   connection: local
   gather_facts: no
   roles:
-    - aws_vpc_peering
+    - aws_vpc_peering_delete
   
