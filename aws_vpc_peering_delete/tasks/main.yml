@@ -1,0 +1,68 @@
+---
+
+- name: Query VPCs
+  amazon.aws.ec2_vpc_net_info:
+    region: "{{ ec2_vpc_region }}"
+    filters:
+      "tag:name": "{{ ec2_vpc_name }}"
+  register: vpc
+
+- name: Query Subnets
+  amazon.aws.ec2_vpc_subnet_info:
+    region: "{{ ec2_vpc_region }}"
+    filters:
+      "tag:name": "{{ ec2_subnet_name }}"
+  register: subnet
+
+- name: Query Route Tables
+  amazon.aws.ec2_vpc_route_table_info:
+    region: "{{ ec2_vpc_region }}"
+    filters:
+      "tag:name": "{{ ec2_rt_name }}"
+  register: rtb
+
+- name: Terminate RHEL instance
+  amazon.aws.ec2_instance:
+    state: absent
+    region: "{{ ec2_vpc_region }}"
+    filters:
+      "tag:name": "{{ ec2_instance_name }}"
+
+- name: Delete Security Group
+  amazon.aws.ec2_group:
+    name: "{{ ec2_sg_name }}"
+    region: "{{ ec2_vpc_region }}"
+    state: absent
+
+- name: Delete Subnet in VPC
+  amazon.aws.ec2_vpc_subnet:
+    vpc_id: "{{ vpc.vpcs[0].id }}"
+    cidr: "{{ subnet.subnets[0].cidr_block }}"
+    region: "{{ ec2_vpc_region }}"
+    state: absent
+  when: vpc.vpcs | length > 0 and subnet.subnets | length > 0
+
+- name: Delete Route Table
+  amazon.aws.ec2_vpc_route_table:
+    vpc_id: "{{ vpc.vpcs[0].id }}"
+    region: "{{ ec2_vpc_region }}"
+    route_table_id: "{{ rtb.route_tables[0].id }}"
+    lookup: id
+    state: absent
+  when: vpc.vpcs | length > 0 and rtb.route_tables | length > 0
+
+- name: Delete Internet Gateway (IGW)
+  amazon.aws.ec2_vpc_igw:
+    vpc_id: "{{ vpc.vpcs[0].id }}"
+    region: "{{ ec2_vpc_region }}"
+    state: absent
+  when: vpc.vpcs | length > 0
+
+- name: Delete VPC
+  amazon.aws.ec2_vpc_net:
+    name: "{{ ec2_vpc_name }}"
+    region: "{{ ec2_vpc_region }}"
+    cidr_block: "{{ vpc.vpcs[0].cidr_block }}"
+    state: absent
+  when: vpc.vpcs | length > 0
+
