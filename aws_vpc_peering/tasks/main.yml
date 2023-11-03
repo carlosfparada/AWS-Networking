@@ -87,7 +87,7 @@
 
 - name: Print instance details
   ansible.builtin.debug:
-    msg: "Instance DNS name is: {{ ec2_instance.instances[0].public_dns_name }} with IP address {{ ec2_instance.instances[0].public_ip_address }}"
+    msg: "Instance DNS name is: {{ ec2_instance_1.instances[0].public_dns_name }} with IP address {{ ec2_instance.instances[0].public_ip_address }}"
 
 - name: Wait until RHEL 1 boots up
   wait_for:
