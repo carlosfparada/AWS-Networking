@@ -1,0 +1,7 @@
+- name: AWS RHEL deployment roles
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - aws_vpc_peering
+  
