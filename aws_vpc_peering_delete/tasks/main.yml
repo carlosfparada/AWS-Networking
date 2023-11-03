@@ -24,6 +24,6 @@
     #peering_id: "{{ manage_vpc_peering_vpc_peering_conn_id }}"
     state: absent
 
-- name: Wait for VPC peering connection to be deleted
+- name: Wait VPC peering connection to be deleted
   ansible.builtin.pause:
     seconds: 5
