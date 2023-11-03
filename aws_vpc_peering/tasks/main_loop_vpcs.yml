@@ -57,7 +57,7 @@
     tags:
       name: "{{ item.ec2_sg_name }}"
 
-- name: Get AMI by Name {{ ami_find.images[-].image_id | default('') }}
+- name: Get AMI by Name {{ item.ec2_image_name }}
   amazon.aws.ec2_ami_info:
     filters:
       name: "{{ item.ec2_image_name }}"
