@@ -2,7 +2,7 @@
 
 - name: Loop for VPCs creation
   include_tasks: main_loop_vpcs.yml
-  loop: "{{ vpcs }}"
+  loop: "{{ vpcs | dict2items }}"
 
 - name: Loop for Peerings creation
   include_tasks: main_loop_peerings.yml

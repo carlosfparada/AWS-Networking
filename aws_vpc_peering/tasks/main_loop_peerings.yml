@@ -14,10 +14,10 @@
 
 - name: Create VPC peering request
   community.aws.ec2_vpc_peer:
-    region: "{{ vpcs[0].ec2_vpc_region }}"
-    peer_region: "{{ vpcs[1].ec2_vpc_region }}"
-    vpc_id: "{{ vpc1.vpcs[0].id }}"
-    peer_vpc_id: "{{ vpc2.vpcs[0].id }}"
+    region: "{{ vpcs['vpc1'].ec2_vpc_region }}"
+    peer_region: "{{ vpcs['vpc1'].ec2_vpc_region }}"
+    vpc_id: "{{ vpc1.vpcs['vpc2'].id }}"
+    peer_vpc_id: "{{ vpc2.vpcs['vpc2'].id }}"
     state: present
   register: vpc_peering_request
 
@@ -25,7 +25,7 @@
   community.aws.ec2_vpc_peering_info:
     peer_connection_ids:
       - "{{ vpc_peering_request.peering_id }}"
-    region: "{{ vpcs[0].ec2_vpc_region }}"
+    region: "{{ vpcs['vpc1'].ec2_vpc_region }}"
   register: peering_info
   retries: 3
   delay: 5
@@ -37,9 +37,7 @@
 
 - name: Accept VPC peering request
   community.aws.ec2_vpc_peer:
-    region: "{{ vpcs[0].ec2_vpc_region }}"
+    region: "{{ vpcs['vpc1'].ec2_vpc_region }}"
     peering_id: "{{ vpc_peering_request.peering_id }}"
-    #peer_owner_id: "{{ manage_vpc_peering_accepter_vpc_account_id | default(omit) }}"
-    #profile: "{{ manage_vpc_peering_accepter_account_profile | default(omit) }}"
     state: accept
   register: vpc_peering_accept
