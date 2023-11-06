@@ -1,7 +1,7 @@
 
 vpcs:
   # VPC 1
-  vpc1:
+  VPC1:
     ec2_vpc_name: VPC1
     ec2_vpc_region: us-east-1
     ec2_vpc_cidr: 10.1.0.0/16
@@ -32,7 +32,7 @@ vpcs:
     ec2_instance_name: rhel-1
 
   # VPC 2
-  vpc2:
+  VPC2:
     ec2_vpc_name: VPC2
     ec2_vpc_region: us-east-1
     ec2_vpc_cidr: 10.2.0.0/16
