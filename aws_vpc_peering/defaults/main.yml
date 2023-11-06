@@ -59,3 +59,8 @@ vpcs:
   ec2_key_name: "KeyPair-Virginia"
   # Instance 2
   ec2_instance_name: rhel-2
+
+peerings:
+- name: VPC1_VPC2
+  vpc_1: VPC1
+  vpc_2: VPC2
