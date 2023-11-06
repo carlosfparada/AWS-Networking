@@ -63,6 +63,6 @@ vpcs:
     ec2_instance_name: rhel-2
 
 peerings:
-- name: vpc1_vpc2
+- name: VPC1_VPC2
   vpc: VPC1
   peer_vpc: VPC2
