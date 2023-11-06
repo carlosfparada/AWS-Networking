@@ -1,16 +1,16 @@
 ---
 
-- name: Query VPCs {{ item.vpc1 }}
+- name: Query VPCs {{ item.vpc }}
   amazon.aws.ec2_vpc_net_info:
     filters:
-      "tag:name": "{{ item.vpc1 }}"
-  register: vpc1
+      "tag:name": "{{ item.vpc }}"
+  register: vpc
 
-- name: Query VPCs {{ item.vpc2 }}
+- name: Query VPCs {{ item.peer_vpc }}
   amazon.aws.ec2_vpc_net_info:
     filters:
-      "tag:name": "{{ item.vpc2 }}"
-  register: vpc2
+      "tag:name": "{{ item.peer_vpc }}"
+  register: peer_vpc
 
 - name: List all VPC peers
   community.aws.ec2_vpc_peering_info:
