@@ -3,42 +3,42 @@
 - debug: 
     var: item
 
-- name: Create VPC {{ vpcs[item].ec2_vpc_name }}
+- name: Create VPC {{ vpcs[item.key].ec2_vpc_name }}
   amazon.aws.ec2_vpc_net:
-    name: "{{ vpcs[item].ec2_vpc_name }}"
-    cidr_block: "{{ vpcs[item].ec2_vpc_cidr }}"
-    region: "{{ vpcs[item].ec2_vpc_region }}"
+    name: "{{ vpcs[item.key].ec2_vpc_name }}"
+    cidr_block: "{{ vpcs[item.key].ec2_vpc_cidr }}"
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
     state: present
     tags:
-      name: "{{ vpcs[item].ec2_vpc_name }}"
+      name: "{{ vpcs[item.key].ec2_vpc_name }}"
   register: vpc
 
-- name: Create Subnet in VPC {{ vpcs[item].ec2_subnet_name }}
+- name: Create Subnet in VPC {{ vpcs[item.key].ec2_subnet_name }}
   amazon.aws.ec2_vpc_subnet:
     vpc_id: "{{ vpc.vpc.id }}"
-    cidr: "{{ vpcs[item].ec2_subnet_cidr }}"
-    region: "{{ vpcs[item].ec2_vpc_region }}"
+    cidr: "{{ vpcs[item.key].ec2_subnet_cidr }}"
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
     state: present
     tags:
-      name: "{{ vpcs[item].ec2_subnet_name }}"
+      name: "{{ vpcs[item.key].ec2_subnet_name }}"
   register: subnet
 
-- name: Create Internet Gateway (IGW) {{ vpcs[item].ec2_igw_name }}
+- name: Create Internet Gateway (IGW) {{ vpcs[item.key].ec2_igw_name }}
   amazon.aws.ec2_vpc_igw:
     vpc_id: "{{ vpc.vpc.id }}"
-    region: "{{ vpcs[item].ec2_vpc_region }}"
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
     state: present
     tags:
-      name: "{{ vpcs[item].ec2_igw_name }}"
+      name: "{{ vpcs[item.key].ec2_igw_name }}"
   register: igw
 
-- name: Create Route Table {{ vpcs[item].ec2_rt_name }} and IGW route 
+- name: Create Route Table {{ vpcs[item.key].ec2_rt_name }} and IGW route 
   amazon.aws.ec2_vpc_route_table:
     vpc_id: "{{ vpc.vpc.id }}"
-    region: "{{ vpcs[item].ec2_vpc_region }}"
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
     state: present
     tags:
-      name: "{{ vpcs[item].ec2_rt_name }}"
+      name: "{{ vpcs[item.key].ec2_rt_name }}"
     subnets:
       - "{{ subnet.subnet.id }}"
     routes:
@@ -47,52 +47,52 @@
 
 - name: Create Security Group {{ ec2_sg_name }}
   amazon.aws.ec2_group:
-    name: "{{ vpcs[item].ec2_sg_name }}"
+    name: "{{ vpcs[item.key].ec2_sg_name }}"
     description: Allow all on ports
     state: present
     rules:
       - proto: tcp
-        ports: "{{ vpcs[item].ec2_sg_openports }}"
+        ports: "{{ vpcs[item.key].ec2_sg_openports }}"
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow all on ports
-    region: "{{ vpcs[item].ec2_vpc_region }}"
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
     vpc_id: "{{ vpc.vpc.id }}"
     tags:
-      name: "{{ vpcs[item].ec2_sg_name }}"
+      name: "{{ vpcs[item.key].ec2_sg_name }}"
 
-- name: Get AMI by Name {{ vpcs[item].ec2_image_name }}
+- name: Get AMI by Name {{ vpcs[item.key].ec2_image_name }}
   amazon.aws.ec2_ami_info:
     filters:
-      name: "{{ vpcs[item].ec2_image_name }}"
-    region: "{{ vpcs[item].ec2_vpc_region }}"
+      name: "{{ vpcs[item.key].ec2_image_name }}"
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
   register: ami_find
 
 - name: Create RHEL instance {{ ami_find.images[-1].image_id | default('') }}
   amazon.aws.ec2_instance:
     image_id: "{{ ami_find.images[-1].image_id | default('') }}"
-    instance_type: "{{ vpcs[item].ec2_flavor_name }}"
-    security_group: "{{ vpcs[item].ec2_sg_name }}"
-    name: "{{ vpcs[item].ec2_instance_name }}"
-    key_name: "{{ vpcs[item].ec2_key_name }}"
-    region: "{{ vpcs[item].ec2_vpc_region }}"
+    instance_type: "{{ vpcs[item.key].ec2_flavor_name }}"
+    security_group: "{{ vpcs[item.key].ec2_sg_name }}"
+    name: "{{ vpcs[item.key].ec2_instance_name }}"
+    key_name: "{{ vpcs[item.key].ec2_key_name }}"
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
     vpc_subnet_id: "{{ subnet.subnet.id }}"
     network:
       assign_public_ip: true
     tags:
-      name: "{{ vpcs[item].ec2_instance_name }}"
+      name: "{{ vpcs[item.key].ec2_instance_name }}"
     volumes:
-      - device_name: "{{ vpcs[item].ec2_ebs_name | default('/dev/sda', true) }}"
+      - device_name: "{{ vpcs[item.key].ec2_ebs_name | default('/dev/sda', true) }}"
         ebs:
-          volume_size: "{{ vpcs[item].ec2_disk_size | default(20, true) }}"
+          volume_size: "{{ vpcs[item.key].ec2_disk_size | default(20, true) }}"
           delete_on_termination: true
     state: running
   register: ec2_instance
 
-- name: Print instance details {{ vpcs[item].ec2_instance_name }}
+- name: Print instance details {{ vpcs[item.key].ec2_instance_name }}
   ansible.builtin.debug:
     msg: "Instance DNS name is: {{ ec2_instance.instances[0].public_dns_name }} with IP address {{ ec2_instance.instances[0].public_ip_address }}"
 
-- name: Wait until RHEL boots up {{ vpcs[item].ec2_instance_name }}
+- name: Wait until RHEL boots up {{ vpcs[item.key].ec2_instance_name }}
   wait_for:
     port: 22
     state: started
@@ -100,7 +100,7 @@
     delay: 10
     host: "{{ ec2_instance.instances[0].public_dns_name }}"
 
-- name: Sleep for additional 10 seconds {{ vpcs[item].ec2_instance_name }}
+- name: Sleep for additional 10 seconds {{ vpcs[item.key].ec2_instance_name }}
   wait_for:
     timeout: 10
   delegate_to: localhost
