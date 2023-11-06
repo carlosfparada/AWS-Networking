@@ -10,7 +10,7 @@
     region: "{{ vpcs[0].ec2_vpc_region }}"
     peering_id: "{{ item.peering_id }}"
     state: absent
-  loop: "{{ all_vpc_peers }}"
+  loop: "{{ all_vpc_peers.vpc_peering_connections }}"
 
 - name: Wait VPC peering connection to be deleted
   ansible.builtin.pause:
