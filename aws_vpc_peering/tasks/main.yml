@@ -27,31 +27,25 @@
     state: present
   register: vpc_peering_request
 
-- name: Sleep for additional 10 seconds
-  wait_for:
-    timeout: 10
-  delegate_to: localhost
+- name: Ensure VPC peering connection request
+  community.aws.ec2_vpc_peering_info:
+    peer_connection_ids:
+      - "{{ vpc_peering_request.peering_id }}"
+    region: "{{ vpcs[0].ec2_vpc_region }}"
+  register: peering_info
+  retries: 3
+  delay: 5
+  until: peering_info.vpc_peering_connections[0].vpc_peering_connection_id is defined
 
-# - name: Ensure VPC peering connection request exists before moving forward
-#   community.aws.ec2_vpc_peering_info:
-#     peer_connection_ids:
-#       - "{{ manage_vpc_peering_vpc_peering_request.peering_id }}"
-#     region: "{{ manage_vpc_peering_accepter_vpc_region | default(manage_vpc_peering_region, true) }}"
-#     profile: "{{ manage_vpc_peering_accepter_account_profile | default(omit) }}"
-#   register: manage_vpc_peering_peering_info
-#   retries: 3
-#   delay: 5
-#   until: manage_vpc_peering_peering_info.vpc_peering_connections[0].vpc_peering_connection_id is defined
+- name: Wait for peering request to be created
+  ansible.builtin.pause:
+    seconds: 5
 
-# - name: Wait for peering request to be created
-#   ansible.builtin.pause:
-#     seconds: 5
-
-# - name: Accept VPC peering request
-#   community.aws.ec2_vpc_peer:
-#     region: "{{ manage_vpc_peering_accepter_vpc_region | default(manage_vpc_peering_region, true) }}"
-#     peering_id: "{{ manage_vpc_peering_vpc_peering_request.peering_id }}"
-#     peer_owner_id: "{{ manage_vpc_peering_accepter_vpc_account_id | default(omit) }}"
-#     profile: "{{ manage_vpc_peering_accepter_account_profile | default(omit) }}"
-#     state: accept
-#   register: manage_vpc_peering_accept_peering_request
+- name: Accept VPC peering request
+  community.aws.ec2_vpc_peer:
+    region: "{{ vpcs[0].ec2_vpc_region }}"
+    peering_id: "{{ item.peering_id }}"
+    #peer_owner_id: "{{ manage_vpc_peering_accepter_vpc_account_id | default(omit) }}"
+    #profile: "{{ manage_vpc_peering_accepter_account_profile | default(omit) }}"
+    state: accept
+  register: vpc_peering_accept
