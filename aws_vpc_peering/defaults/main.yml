@@ -64,5 +64,5 @@ vpcs:
 
 peerings:
 - name: vpc1_vpc2
-  vpc: vpc1
-  peer_vpc: vpc2
+  vpc: VPC1
+  peer_vpc: VPC2
