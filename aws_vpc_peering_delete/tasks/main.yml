@@ -1,20 +1,8 @@
 ---
 
-- name: List all VPC peers
-  community.aws.ec2_vpc_peering_info:
-    region: "{{ vpcs[0].ec2_vpc_region }}"
-  register: all_vpc_peers
-
-- name: Delete all VPC peering connections
-  community.aws.ec2_vpc_peer:
-    region: "{{ vpcs[0].ec2_vpc_region }}"
-    peering_id: "{{ item.vpc_peering_connection_id }}"
-    state: absent
-  loop: "{{ all_vpc_peers.vpc_peering_connections }}"
-
-- name: Wait VPC peering connection to be deleted
-  ansible.builtin.pause:
-    seconds: 5
+- name: Loop for Peerings deletion
+  include_tasks: main_loop_peerings.yml
+  loop: "{{ peerings }}"
 
 - name: Loop for VPCs deletion
   include_tasks: main_loop_vpcs.yml
