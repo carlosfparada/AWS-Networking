@@ -6,4 +6,4 @@
 
 - name: Loop for VPCs deletion
   include_tasks: main_loop_vpcs.yml
-  loop: "{{ vpcs }}"
+  loop: "{{ vpcs | dict2items }}"
