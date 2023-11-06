@@ -1,5 +1,8 @@
 ---
 
+- debug: 
+    var: item
+
 - name: Create VPC {{ vpcs[item].ec2_vpc_name }}
   amazon.aws.ec2_vpc_net:
     name: "{{ vpcs[item].ec2_vpc_name }}"
