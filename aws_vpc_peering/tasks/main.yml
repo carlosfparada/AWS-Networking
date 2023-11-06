@@ -44,7 +44,7 @@
 - name: Accept VPC peering request
   community.aws.ec2_vpc_peer:
     region: "{{ vpcs[0].ec2_vpc_region }}"
-    peering_id: "{{ item.peering_id }}"
+    peering_id: "{{ vpc_peering_request.peering_id }}"
     #peer_owner_id: "{{ manage_vpc_peering_accepter_vpc_account_id | default(omit) }}"
     #profile: "{{ manage_vpc_peering_accepter_account_profile | default(omit) }}"
     state: accept
