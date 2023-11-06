@@ -1,13 +1,13 @@
 ---
 
-- name: Query VPCs {{ item.vpc }}
+- name: Query VPC {{ item.vpc }}
   amazon.aws.ec2_vpc_net_info:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     filters:
       "tag:name": "{{ item.vpc }}"
   register: vpc
 
-- name: Query VPCs {{ item.peer_vpc }}
+- name: Query VPC {{ item.peer_vpc }}
   amazon.aws.ec2_vpc_net_info:
     region: "{{ vpcs[item.peer_vpc].ec2_vpc_region }}"
     filters:
