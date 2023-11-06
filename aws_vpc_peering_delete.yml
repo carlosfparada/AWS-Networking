@@ -1,4 +1,4 @@
-- name: AWS VPN Peering
+- name: AWS VPN Peering delete
   hosts: localhost
   connection: local
   gather_facts: no
