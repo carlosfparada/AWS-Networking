@@ -29,7 +29,3 @@
 - name: Wait VPC peering connection to be deleted
   ansible.builtin.pause:
     seconds: 5
-
-- name: Loop for VPCs deletion
-  include_tasks: main_loop_vpcs.yml
-  loop: "{{ vpcs }}"
