@@ -2,7 +2,7 @@
 
 - name: List all VPC peers
   community.aws.ec2_vpc_peering_info:
-    region: ap-southeast-2
+    region: "{{ vpcs[0].ec2_vpc_region }}"
   register: all_vpc_peers
 
 - name: Delete all VPC peering connections
