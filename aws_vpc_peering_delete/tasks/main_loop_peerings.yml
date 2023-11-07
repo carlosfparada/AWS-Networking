@@ -1,30 +1,32 @@
 ---
 
-- name: Query VPCs {{ item.vpc }}
+- name: Query VPC {{ item.vpc }}
   amazon.aws.ec2_vpc_net_info:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     filters:
       "tag:name": "{{ item.vpc }}"
   register: vpc
 
-- name: Query VPCs {{ item.peer_vpc }}
+- name: Query VPC {{ item.peer_vpc }}
   amazon.aws.ec2_vpc_net_info:
     region: "{{ vpcs[item.peer_vpc].ec2_vpc_region }}"
     filters:
       "tag:name": "{{ item.peer_vpc }}"
   register: peer_vpc
 
-- name: List all VPC peers
+- name: Find VPC peering connection {{ item.peer_vpc }} and {{ item.peer_vpc }}  
   community.aws.ec2_vpc_peering_info:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
+    filters:
+      requester-vpc-info.vpc-id: vpc.vpc_id
+      accepter-vpc-info.vpc-id: peer_vpc.vpc_id
   register: all_vpc_peers
 
-- name: Delete peering connection
+- name: Delete VPN peering connection {{ item.peer_vpc }} and {{ item.peer_vpc }}
   community.aws.ec2_vpc_peer:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     peering_id: "{{ all_vpc_peers.vpc_peering_connections[1].vpc_peering_connection_id }}"
     state: absent
-  #loop: "{{ all_vpc_peers.vpc_peering_connections }}"
 
 - name: Wait VPC peering connection to be deleted
   ansible.builtin.pause:
