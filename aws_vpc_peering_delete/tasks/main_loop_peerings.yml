@@ -14,6 +14,9 @@
       "tag:name": "{{ item.peer_vpc }}"
   register: peer_vpc
 
+- ansible.builtin.debug:
+    var: vpc
+
 - name: Find VPC peering connection {{ item.peer_vpc }} and {{ item.peer_vpc }}  
   community.aws.ec2_vpc_peering_info:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
