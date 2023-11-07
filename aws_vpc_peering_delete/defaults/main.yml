@@ -62,7 +62,41 @@ vpcs:
     # Instance 2
     ec2_instance_name: rhel-2
 
+  # VPC 3
+  VPC3:
+    ec2_vpc_name: VPC3
+    ec2_vpc_region: us-east-1
+    ec2_vpc_cidr: 10.3.0.0/16
+    # Subnet 3
+    ec2_subnet_name: Subnet3
+    ec2_subnet_cidr: 10.3.0.0/24
+    # IGW 3
+    ec2_igw_name: IGW3
+    # Route Table 3
+    ec2_rt_name: RT3
+    # SG 3
+    ec2_sg_name: SG3
+    # RHEL Open ports 3
+    ec2_sg_openports:
+      - 80
+      - 443
+      - 22
+    # AMI 3
+    ec2_image_name: RHEL-8.6.0_HVM-*x86_64*
+    # Flavour 3
+    ec2_flavor_name: t2.micro
+    # Disk 3
+    ec2_disk_size: 20
+    ec2_ebs_name: /dev/sda1
+    # Key Pair 3
+    ec2_key_name: "KeyPair-Virginia"
+    # Instance 3
+    ec2_instance_name: rhel-3
+
 peerings:
 - name: VPC1_VPC2
   vpc: VPC1
   peer_vpc: VPC2
+- name: VPC2_VPC3
+  vpc: VPC2
+  peer_vpc: VPC3
