@@ -43,3 +43,31 @@
     peering_id: "{{ vpc_peering_request.peering_id }}"
     state: accept
   register: vpc_peering_accept
+
+
+# - name: Get Routing Table Info {{ vpcs[item.vpc].ec2_rt_name }}
+#   amazon.aws.ec2_vpc_route_table_info:
+#     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
+#     filters:
+#       "tag:Name": "{{ vpcs[item.vpc].ec2_rt_name }}"
+#   register: vpc_rt
+
+# - name: Get Routing Table Info {{ vpcs[item.peer_vpc].ec2_rt_name }}
+#   amazon.aws.ec2_vpc_route_table_info:
+#     region: "{{ vpcs[item.peer_vpc].ec2_vpc_region }}"
+#     filters:
+#       "tag:Name": "{{ vpcs[item.peer_vpc].ec2_rt_name }}"
+#   register: peer_vpc_rt
+
+# - name: Update Route Table {{ vpcs[item.peer_vpc].ec2_rt_name }} and IGW route 
+#   amazon.aws.ec2_vpc_route_table:
+#     vpc_id: "{{ vpc.vpc.id }}"
+#     region: "{{ vpcs[item.key].ec2_vpc_region }}"
+#     state: present
+#     tags:
+#       name: "{{ vpcs[item.key].ec2_rt_name }}"
+#     subnets:
+#       - "{{ subnet.subnet.id }}"
+#     routes:
+#       - dest: 0.0.0.0/0
+#         vpc_peering_connection_id: "{{ vpc_peering_request.peering_id }}"
