@@ -36,6 +36,7 @@
     state: present
     tags:
       name: "{{ vpcs[item.key].ec2_rt_name }}"
+      Name: "{{ vpcs[item.key].ec2_rt_name }}"
     subnets:
       - "{{ subnet.subnet.id }}"
     routes:

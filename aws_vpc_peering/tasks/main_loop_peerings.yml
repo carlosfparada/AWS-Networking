@@ -50,6 +50,7 @@
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     filters:
       "tag:Name": "{{ vpcs[item.vpc].ec2_rt_name }}"
+      "tag:name": "{{ vpcs[item.vpc].ec2_rt_name }}"
   register: vpc_rt
 
 - name: Get Routing Table Info {{ vpcs[item.peer_vpc].ec2_rt_name }}
@@ -57,6 +58,7 @@
     region: "{{ vpcs[item.peer_vpc].ec2_vpc_region }}"
     filters:
       "tag:Name": "{{ vpcs[item.peer_vpc].ec2_rt_name }}"
+      "tag:name": "{{ vpcs[item.peer_vpc].ec2_rt_name }}"
   register: peer_vpc_rt
 
 # - name: Update Route Table {{ vpcs[item.vpc].ec2_rt_name }} and IGW route 
