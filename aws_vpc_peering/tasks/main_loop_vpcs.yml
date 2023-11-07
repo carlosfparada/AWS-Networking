@@ -60,7 +60,7 @@
 - name: Get AMI by Name {{ vpcs[item.key].ec2_image_name }}
   amazon.aws.ec2_ami_info:
     filters:
-      Name: "{{ vpcs[item.key].ec2_image_name }}"
+      name: "{{ vpcs[item.key].ec2_image_name }}"
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
   register: ami_find
 
