@@ -18,8 +18,8 @@
   community.aws.ec2_vpc_peering_info:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     filters:
-      requester-vpc-info.vpc-id: "{{ vpc.vpc_id }}"
-      accepter-vpc-info.vpc-id: "{{ peer_vpc.vpc_id }}"
+      requester-vpc-info.vpc-id: "{{ vpc.id }}"
+      accepter-vpc-info.vpc-id: "{{ peer_vpc.id }}"
   register: all_vpc_peers
 
 - name: Delete VPN peering connection {{ item.peer_vpc }} and {{ item.peer_vpc }}
