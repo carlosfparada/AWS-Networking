@@ -7,7 +7,6 @@
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
     state: present
     tags:
-      name: "{{ vpcs[item.key].ec2_vpc_name }}"
       Name: "{{ vpcs[item.key].ec2_vpc_name }}"
   register: vpc
 
@@ -18,7 +17,6 @@
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
     state: present
     tags:
-      name: "{{ vpcs[item.key].ec2_subnet_name }}"
       Name: "{{ vpcs[item.key].ec2_subnet_name }}"
   register: subnet
 
@@ -28,7 +26,7 @@
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
     state: present
     tags:
-      name: "{{ vpcs[item.key].ec2_igw_name }}"
+      Name: "{{ vpcs[item.key].ec2_igw_name }}"
   register: igw
 
 - name: Create Route Table {{ vpcs[item.key].ec2_rt_name }} and IGW route 
@@ -37,7 +35,6 @@
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
     state: present
     tags:
-      name: "{{ vpcs[item.key].ec2_rt_name }}"
       Name: "{{ vpcs[item.key].ec2_rt_name }}"
     subnets:
       - "{{ subnet.subnet.id }}"
@@ -58,13 +55,12 @@
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
     vpc_id: "{{ vpc.vpc.id }}"
     tags:
-      name: "{{ vpcs[item.key].ec2_sg_name }}"
       Name: "{{ vpcs[item.key].ec2_sg_name }}"
 
 - name: Get AMI by Name {{ vpcs[item.key].ec2_image_name }}
   amazon.aws.ec2_ami_info:
     filters:
-      name: "{{ vpcs[item.key].ec2_image_name }}"
+      Name: "{{ vpcs[item.key].ec2_image_name }}"
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
   register: ami_find
 
@@ -80,7 +76,6 @@
     network:
       assign_public_ip: true
     tags:
-      name: "{{ vpcs[item.key].ec2_instance_name }}"
       Name: "{{ vpcs[item.key].ec2_instance_name }}"
     volumes:
       - device_name: "{{ vpcs[item.key].ec2_ebs_name | default('/dev/sda', true) }}"

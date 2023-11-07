@@ -4,14 +4,14 @@
   amazon.aws.ec2_vpc_net_info:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     filters:
-      "tag:name": "{{ item.vpc }}"
+      "tag:Name": "{{ item.vpc }}"
   register: vpc
 
 - name: Query VPC {{ item.peer_vpc }}
   amazon.aws.ec2_vpc_net_info:
     region: "{{ vpcs[item.peer_vpc].ec2_vpc_region }}"
     filters:
-      "tag:name": "{{ item.peer_vpc }}"
+      "tag:Name": "{{ item.peer_vpc }}"
   register: peer_vpc
 
 - name: Create VPC peering request
@@ -50,7 +50,6 @@
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     filters:
       "tag:Name": "{{ vpcs[item.vpc].ec2_rt_name }}"
-      "tag:name": "{{ vpcs[item.vpc].ec2_rt_name }}"
   register: vpc_rt
 
 - name: Get Routing Table Info {{ vpcs[item.peer_vpc].ec2_rt_name }}
@@ -58,7 +57,6 @@
     region: "{{ vpcs[item.peer_vpc].ec2_vpc_region }}"
     filters:
       "tag:Name": "{{ vpcs[item.peer_vpc].ec2_rt_name }}"
-      "tag:name": "{{ vpcs[item.peer_vpc].ec2_rt_name }}"
   register: peer_vpc_rt
 
 - name: Update Route Table with Peering Route Entry {{ vpcs[item.vpc].ec2_rt_name }}
