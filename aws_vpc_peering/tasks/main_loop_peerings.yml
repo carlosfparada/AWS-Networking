@@ -59,11 +59,14 @@
       "tag:Name": "{{ vpcs[item.peer_vpc].ec2_rt_name }}"
   register: peer_vpc_rt
 
+- debug:
+    var: vpc_rt
+
 - name: Update Route Table with Peering Route Entry {{ vpcs[item.vpc].ec2_rt_name }}
   amazon.aws.ec2_vpc_route_table:
     vpc_id: "{{ vpc.vpcs[0].id }}"
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
-    route_table_id: "{{ vpc_rt.id }}"
+    route_table_id: "{{ vpc_rt.route_tables[0].route_table_id }}"
     state: present
     routes:
       - dest: "{{ vpcs[item.peer_vpc].ec2_subnet_cidr }}"
@@ -73,7 +76,7 @@
   amazon.aws.ec2_vpc_route_table:
     vpc_id: "{{ peer_vpc.vpcs[0].id }}"
     region: "{{ vpcs[item.peer_vpc].ec2_vpc_region }}"
-    route_table_id: "{{ peer_vpc_rt.id }}"
+    route_table_id: "{{ peer_vpc_rt.route_tables[0].route_table_id }}"
     state: present
     routes:
       - dest: "{{ vpcs[item.vpc].ec2_subnet_cidr }}"
