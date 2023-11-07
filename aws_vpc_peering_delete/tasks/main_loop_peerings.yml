@@ -17,7 +17,7 @@
 - ansible.builtin.debug:
     var: vpc
 
-- name: Find VPC peering connection {{ item.peer_vpc }} and {{ item.peer_vpc }}  
+- name: Find VPC peering connection {{ item.vpc }} -> {{ item.peer_vpc }}  
   community.aws.ec2_vpc_peering_info:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     filters:
@@ -26,7 +26,7 @@
   when: vpc | lenght > 0 and peer_vpc | lenght > 0
   register: vpc_peering
 
-- name: Delete VPN peering connection {{ item.peer_vpc }} and {{ item.peer_vpc }}
+- name: Delete VPN peering connection {{ item.vpc }} -> {{ item.peer_vpc }}
   community.aws.ec2_vpc_peer:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     peering_id: "{{ vpc_peering.vpc_peering_connections[0].vpc_peering_connection_id }}"
