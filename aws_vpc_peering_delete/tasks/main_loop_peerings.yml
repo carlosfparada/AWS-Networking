@@ -21,8 +21,8 @@
   community.aws.ec2_vpc_peering_info:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     filters:
-      requester-vpc-info.vpc-id: "{{ vpc[0].id }}"
-      accepter-vpc-info.vpc-id: "{{ peer_vpc[0].id }}"
+      requester-vpc-info.vpc-id: "{{ vpc.vpcs[0].id }}"
+      accepter-vpc-info.vpc-id: "{{ peer_vpc.vpcs[0].id }}"
   when: vpc | lenght > 0 and peer_vpc | lenght > 0
   register: vpc_peering
 
