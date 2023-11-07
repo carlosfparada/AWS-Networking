@@ -61,12 +61,22 @@
       "tag:name": "{{ vpcs[item.peer_vpc].ec2_rt_name }}"
   register: peer_vpc_rt
 
-# - name: Update Route Table {{ vpcs[item.vpc].ec2_rt_name }} and IGW route 
-#   amazon.aws.ec2_vpc_route_table:
-#     vpc_id: "{{ vpc.vpcs[0].id }}"
-#     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
-#     state: present
-#     route_table_id
-#     routes:
-#       - dest: "{{ vpcs[item.peer_vpc].ec2_subnet_cidr  }}"
-#         vpc_peering_connection_id: "{{ vpc_peering_request.peering_id }}"
+- name: Update Route Table with Peering Route Entry {{ vpcs[item.vpc].ec2_rt_name }}
+  amazon.aws.ec2_vpc_route_table:
+    vpc_id: "{{ vpc.vpcs[0].id }}"
+    region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
+    route_table_id: "{{ vpc_rt.route_table.id }}"
+    state: present
+    routes:
+      - dest: "{{ vpcs[item.peer_vpc].ec2_subnet_cidr }}"
+        vpc_peering_connection_id: "{{ vpc_peering_request.peering_id }}"
+
+- name: Update Route Table with Peering Route Entry {{ vpcs[item.peer_vpc].ec2_rt_name }}
+  amazon.aws.ec2_vpc_route_table:
+    vpc_id: "{{ peer_vpc.vpcs[0].id }}"
+    region: "{{ vpcs[item.peer_vpc].ec2_vpc_region }}"
+    route_table_id: "{{ peer_vpc_rt.route_table.id }}"
+    state: present
+    routes:
+      - dest: "{{ vpcs[item.vpc].ec2_subnet_cidr }}"
+        vpc_peering_connection_id: "{{ vpc_peering_request.peering_id }}"
