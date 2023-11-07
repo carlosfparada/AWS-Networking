@@ -59,9 +59,6 @@
       "tag:Name": "{{ vpcs[item.peer_vpc].ec2_rt_name }}"
   register: peer_vpc_rt
 
-- debug:
-    var: vpc_rt
-
 - name: Update Route Table with Peering Route Entry {{ vpcs[item.vpc].ec2_rt_name }}
   amazon.aws.ec2_vpc_route_table:
     vpc_id: "{{ vpc.vpcs[0].id }}"
