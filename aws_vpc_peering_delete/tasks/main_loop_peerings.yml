@@ -23,7 +23,7 @@
     filters:
       requester-vpc-info.vpc-id: "{{ vpc.vpcs[0].id }}"
       accepter-vpc-info.vpc-id: "{{ peer_vpc.vpcs[0].id }}"
-  when: vpc | lenght > 0 and peer_vpc | lenght > 0
+  when: vpc.vpcs | lenght > 0 and peer_vpc.vpcs | lenght > 0
   register: vpc_peering
 
 - name: Delete VPN peering connection {{ item.vpc }} -> {{ item.peer_vpc }}
