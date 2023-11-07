@@ -23,9 +23,6 @@
   when: vpc.vpcs | length > 0 and peer_vpc.vpcs | length > 0
   register: vpc_peering
 
-- ansible.builtin.debug:
-    var: vpc_peering
-
 - name: Delete VPC peering connection {{ item.vpc }} -> {{ item.peer_vpc }}
   community.aws.ec2_vpc_peer:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
