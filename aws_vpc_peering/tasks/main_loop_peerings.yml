@@ -69,6 +69,7 @@
       Name: "{{ vpcs[item.vpc].ec2_rt_name }}"
     state: present
     routes:
+      - "{{ vpc_rt.route_tables[0].routes }}"
       - dest: "{{ vpcs[item.peer_vpc].ec2_subnet_cidr }}"
         vpc_peering_connection_id: "{{ vpc_peering_request.peering_id }}"
 
@@ -82,5 +83,6 @@
       Name: "{{ vpcs[item.peer_vpc].ec2_rt_name }}"
     state: present
     routes:
+      - "{{ peer_vpc_rt.route_tables[0].routes }}"
       - dest: "{{ vpcs[item.vpc].ec2_subnet_cidr }}"
         vpc_peering_connection_id: "{{ vpc_peering_request.peering_id }}"
