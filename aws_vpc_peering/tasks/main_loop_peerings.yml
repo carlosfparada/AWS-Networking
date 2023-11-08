@@ -25,17 +25,17 @@
 
 - name: Ensure VPC peering connection request
   community.aws.ec2_vpc_peering_info:
-    peer_connection_ids:
-      - "{{ vpc_peering_request.peering_id }}"
+    peer_connection_ids: "{{ vpc_peering_request.peering_id }}"
+#      - "{{ vpc_peering_request.peering_id }}"
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
   register: peering_info
   retries: 3
   delay: 5
   until: peering_info.vpc_peering_connections[0].vpc_peering_connection_id is defined
 
-- name: Wait for peering request to be created
-  ansible.builtin.pause:
-    seconds: 5
+# - name: Wait for peering request to be created
+#   ansible.builtin.pause:
+#     seconds: 5
 
 - name: Accept VPC peering request
   community.aws.ec2_vpc_peer:
