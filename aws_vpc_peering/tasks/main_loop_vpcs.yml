@@ -47,11 +47,7 @@
     name: "{{ vpcs[item.key].ec2_sg_name }}"
     description: Allow all on ports
     state: present
-    rules:
-      - proto: tcp
-        ports: "{{ vpcs[item.key].ec2_sg_openports }}"
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Allow all on ports
+    rules: "{{ vpcs[item.key].ec2_sg_rules }}"
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
     vpc_id: "{{ vpc.vpc.id }}"
     tags:
