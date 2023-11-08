@@ -50,15 +50,15 @@ vpcs:
     # RHEL Rules 2
     ec2_sg_rules:
       - proto: tcp
-        # ports:
-        #   - 80
-        #   - 443
-        #   - 22
+        ports:
+          - 80
+          - 443
+          - 22
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow all on ports
-      # - proto: icmp
-      #   cidr_ip: 0.0.0.0/0
-      #   rule_desc: Allow all ICMP
+      - proto: icmp
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Allow all ICMP
     # AMI 2
     ec2_image_name: RHEL-8.6.0_HVM-*x86_64*
     # Flavour 2 
