@@ -31,7 +31,7 @@
 
 
 - name: Delete Security Group {{ vpcs[item.key].ec2_sg_name }}
-  amazon.aws.ec2_group:
+  amazon.aws.ec2_security_group:
     name: "{{ vpcs[item.key].ec2_sg_name }}"
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
     state: absent

@@ -25,7 +25,7 @@ vpcs:
         rule_desc: Allow all on ports
       - proto: icmp
         icmp_type: -1
-        icmp_type: -1
+        icmp_code: -1
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow all ICMP
     # AMI 1
@@ -65,7 +65,7 @@ vpcs:
         rule_desc: Allow all on ports
       - proto: icmp
         icmp_type: -1
-        icmp_type: -1
+        icmp_code: -1
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow all ICMP
     # AMI 2
@@ -105,7 +105,7 @@ vpcs:
         rule_desc: Allow all on ports
       - proto: icmp
         icmp_type: -1
-        icmp_type: -1
+        icmp_code: -1
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow all ICMP
     # AMI 3
