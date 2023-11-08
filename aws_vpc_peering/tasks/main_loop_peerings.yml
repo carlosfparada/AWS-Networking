@@ -63,7 +63,6 @@
     vpc_id: "{{ vpc.vpcs[0].id }}"
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     #route_table_id: "{{ vpc_rt.route_tables[0].route_table_id }}"
-    lookup: id
     purge_routes: no
     tags:
       Name: "{{ vpcs[item.vpc].ec2_rt_name }}"
@@ -77,7 +76,6 @@
     vpc_id: "{{ peer_vpc.vpcs[0].id }}"
     region: "{{ vpcs[item.peer_vpc].ec2_vpc_region }}"
     #route_table_id: "{{ peer_vpc_rt.route_tables[0].route_table_id }}"
-    lookup: id
     purge_routes: no
     tags:
       Name: "{{ vpcs[item.peer_vpc].ec2_rt_name }}"
