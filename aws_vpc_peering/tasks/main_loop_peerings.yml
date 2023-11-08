@@ -33,9 +33,9 @@
   delay: 5
   until: peering_info.vpc_peering_connections[0].vpc_peering_connection_id is defined
 
-# - name: Wait for peering request to be created
-#   ansible.builtin.pause:
-#     seconds: 5
+- name: Wait for peering request to be created
+  ansible.builtin.pause:
+    seconds: 5
 
 - name: Accept VPC peering request
   community.aws.ec2_vpc_peer:
