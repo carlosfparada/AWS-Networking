@@ -58,11 +58,16 @@
           - 22
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow all on ports
-      - proto: icmp
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Allow all ICMP
+      # - proto: icmp
+      #   cidr_ip: 0.0.0.0/0
+      #   rule_desc: Allow all ICMP
     tags:
       Name: "{{ vpcs[item.key].ec2_sg_name }}"
+
+- name: Sleep for additional 100 seconds
+  wait_for:
+    timeout: 100
+  delegate_to: localhost
 
 - name: "Get AMI by Name {{ vpcs[item.key].ec2_image_name }}"
   amazon.aws.ec2_ami_info:
