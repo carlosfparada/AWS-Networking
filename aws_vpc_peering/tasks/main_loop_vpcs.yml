@@ -95,7 +95,7 @@
     state: started
     timeout: 300
     delay: 10
-    host: "{{ ec2_instance.instances[0].public_dns_name }}"
+    host: "{{ ec2_instance.instances[0].public_ip_address }}"
 
 - name: Sleep for additional 10 seconds {{ vpcs[item.key].ec2_instance_name }}
   wait_for:
