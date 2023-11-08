@@ -17,10 +17,17 @@ vpcs:
     # RHEL Rules 1
     ec2_sg_rules:
       - proto: tcp
-        ports: 
+        ports:
           - 80
+          - 443
+          - 22
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow all on ports
+      - proto: icmp
+        icmp_type: -1
+        icmp_type: -1
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Allow all ICMP
     # AMI 1
     ec2_image_name: RHEL-8.6.0_HVM-*x86_64*
     # Flavour 1 
@@ -57,6 +64,8 @@ vpcs:
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow all on ports
       - proto: icmp
+        icmp_type: -1
+        icmp_type: -1
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow all ICMP
     # AMI 2
@@ -95,6 +104,8 @@ vpcs:
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow all on ports
       - proto: icmp
+        icmp_type: -1
+        icmp_type: -1
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow all ICMP
     # AMI 3
