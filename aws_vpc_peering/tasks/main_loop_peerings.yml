@@ -26,7 +26,6 @@
 - name: Ensure VPC peering connection request
   community.aws.ec2_vpc_peering_info:
     peer_connection_ids: "{{ vpc_peering_request.peering_id }}"
-#      - "{{ vpc_peering_request.peering_id }}"
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
   register: peering_info
   retries: 3

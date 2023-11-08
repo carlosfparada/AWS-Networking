@@ -42,7 +42,7 @@
       - dest: 0.0.0.0/0
         gateway_id: "{{ igw.gateway_id }}"
 
-- name: "Create Security Group {{ ec2_sg_name }}"
+- name: Create Security Group {{ vpcs[item.key].ec2_sg_name }}
   amazon.aws.ec2_security_group:
     name: "{{ vpcs[item.key].ec2_sg_name }}"
     description: Allow all on ports
@@ -53,14 +53,14 @@
       Name: "{{ vpcs[item.key].ec2_sg_name }}"
     state: present
 
-- name: "Get AMI by Name {{ vpcs[item.key].ec2_image_name }}"
+- name: Get AMI by Name {{ vpcs[item.key].ec2_image_name }}
   amazon.aws.ec2_ami_info:
     filters:
       name: "{{ vpcs[item.key].ec2_image_name }}"
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
   register: ami_find
 
-- name: "Create RHEL instance {{ ami_find.images[-1].image_id | default('') }}"
+- name: Create RHEL instance {{ ami_find.images[-1].image_id | default('') }}
   amazon.aws.ec2_instance:
     image_id: "{{ ami_find.images[-1].image_id | default('') }}"
     instance_type: "{{ vpcs[item.key].ec2_flavor_name }}"
