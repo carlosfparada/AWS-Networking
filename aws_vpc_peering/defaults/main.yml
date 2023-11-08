@@ -55,10 +55,10 @@ vpcs:
     # RHEL Rules 2
     ec2_sg_rules:
       - proto: tcp
-        ports:
-          - 80
-          - 443
-          - 22
+        # ports:
+        #   - 80
+        #   - 443
+        #   - 22
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow all on ports
       # - proto: icmp
