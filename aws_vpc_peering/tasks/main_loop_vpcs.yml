@@ -43,13 +43,13 @@
         gateway_id: "{{ igw.gateway_id }}"
 
 - name: Create Security Group {{ ec2_sg_name }}
-  amazon.aws.ec2_group:
+  amazon.aws.ec2_security_group:
     name: "{{ vpcs[item.key].ec2_sg_name }}"
     description: Allow all on ports
     state: present
-    rules: "{{ vpcs[item.key].ec2_sg_rules }}"
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
     vpc_id: "{{ vpc.vpc.id }}"
+    rules: "{{ vpcs[item.key].ec2_sg_rules }}"
     tags:
       Name: "{{ vpcs[item.key].ec2_sg_name }}"
 
