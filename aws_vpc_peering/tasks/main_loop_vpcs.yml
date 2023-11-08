@@ -46,17 +46,12 @@
   amazon.aws.ec2_security_group:
     name: "{{ vpcs[item.key].ec2_sg_name }}"
     description: Allow all on ports
-    state: present
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
     vpc_id: "{{ vpc.vpc.id }}"
     rules: "{{ vpcs[item.key].ec2_sg_rules }}"
     tags:
       Name: "{{ vpcs[item.key].ec2_sg_name }}"
-
-- name: Sleep for additional 100 seconds
-  wait_for:
-    timeout: 100
-  delegate_to: localhost
+    state: present
 
 - name: "Get AMI by Name {{ vpcs[item.key].ec2_image_name }}"
   amazon.aws.ec2_ami_info:
