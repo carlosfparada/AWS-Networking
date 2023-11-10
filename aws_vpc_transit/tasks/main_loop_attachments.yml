@@ -16,7 +16,6 @@
       Name: "{{ item.name }}"
     purge_subnets: false
     state: present
-  loop: "{{ item.attachments }}"
   register: transit_attachment
 
 
