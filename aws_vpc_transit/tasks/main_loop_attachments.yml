@@ -7,12 +7,13 @@
       "tag:Name": "{{ item.subnet }}"
   register: subnet
 
-- name: Create Transit VPC attachment {{ item.vpc }}
+- name: Create Transit VPC attachment {{ item.name }}
   community.aws.ec2_transit_gateway_vpc_attachment:
     name: "{{ item.name }}"
     transit_gateway: "{{ transit.transit_gateway.transit_gateway_id }}"
     subnets: "{{ subnet.subnets[0].subnet_id }}"
-    tags: "{{ item.name }}"
+    tags:
+      Name: "{{ item.name }}"
     purge_subnets: false
     state: present
   loop: "{{ item.attachments }}"
