@@ -11,9 +11,6 @@
   include_tasks: main_loop_attachments.yml
   loop: "{{ item.attachments }}"
 
-- debug:
-    var: transit
-
 - name: Delete transit gateway {{ item.name }}
   community.aws.ec2_transit_gateway:
     region: "{{ item.region }}"
