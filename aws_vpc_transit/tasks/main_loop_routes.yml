@@ -7,14 +7,15 @@
       "tag:Name": "{{ item.vpc }}"
   register: vpc
 
-- name: Update Route Table with Transit Routes {{ item.vpc }}
+- name: Update Route Table with Transit Routes {{ transit_attachment.attachments[0].vpc_id }} -> {{ item.vpc }}
   amazon.aws.ec2_vpc_route_table:
     vpc_id: "{{ transit_attachment.attachments[0].vpc_id }}"
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
+    subnets: "{{ subnet.subnets[0].subnet_id }}"
     purge_subnets: no
     purge_routes: no
     tags:
-      Name: "{{ vpcs[item.vpc].ec2_rt_name }}"
+      Name: "{{ {{ transit_attachment.attachments[0].tags.Name }} }}"
     routes:
       - dest: "{{ vpcs[item.vpc].ec2_subnet_cidr }}"
         gateway_id: "{{ transit.transit_gateway.transit_gateway_id }}"
