@@ -14,7 +14,7 @@
 - debug:
     var: transit
 
-- name: Delete transit gateway {{ item.vpc }} -> {{ item.peer_vpc }}
+- name: Delete transit gateway {{ item.name }}
   community.aws.ec2_transit_gateway:
     region: "{{ item.region }}"
     transit_gateway_id: '{{ transit.transit_gateways[0].transit_gateway_id }}'
