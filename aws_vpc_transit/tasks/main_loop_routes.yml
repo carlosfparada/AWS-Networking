@@ -15,7 +15,7 @@
     purge_subnets: no
     purge_routes: no
     tags:
-      Name: "{{ transit_attachment.attachments[0].tags.Name }}"
+      Name: "{{ vpcs[transit_attachment.attachments[0].tags.Name].ec2_rt_name }}"
     routes:
       - dest: "{{ vpcs[item.vpc].ec2_subnet_cidr }}"
         gateway_id: "{{ transit.transit_gateway.transit_gateway_id }}"
