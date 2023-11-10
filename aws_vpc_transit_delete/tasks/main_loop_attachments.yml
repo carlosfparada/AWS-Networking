@@ -1,6 +1,9 @@
 ---
 
-- name: Delete Transit VPC attachments {{ item.vpc }}
+- debug: 
+    var: transit
+
+- name: Delete Transit VPC attachment {{ item.vpc }}
   community.aws.ec2_transit_gateway_vpc_attachment:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     transit_gateway: "{{ transit.transit_gateway.transit_gateway_id }}"
