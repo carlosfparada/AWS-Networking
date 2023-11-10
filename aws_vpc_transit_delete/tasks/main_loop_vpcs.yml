@@ -1,6 +1,6 @@
 ---
 
-- name: Query VPCs {{ item.ec2_vpc_name }}
+- name: Query VPCs {{ vpcs[item.key].ec2_vpc_name }}
   amazon.aws.ec2_vpc_net_info:
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
     filters:
@@ -64,7 +64,7 @@
   when: vpc.vpcs | length > 0
   ignore_errors: true
 
-- name: Delete VPC {{ ec2_vpc_name }}
+- name: Delete VPC {{ vpcs[item.key].ec2_vpc_name }}
   amazon.aws.ec2_vpc_net:
     name: "{{ vpcs[item.key].ec2_vpc_name }}"
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
