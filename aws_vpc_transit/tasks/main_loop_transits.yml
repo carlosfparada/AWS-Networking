@@ -2,6 +2,7 @@
 
 - name: Create transit gateway "{{ item.name }}"
   community.aws.ec2_transit_gateway:
+    region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     asn: "{{ item.asn }}"
     tags:
       Name: "{{ item.name }}"
