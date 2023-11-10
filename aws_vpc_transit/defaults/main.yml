@@ -125,12 +125,12 @@ transits:
     region: us-east-1
     asn: 65000
     attachments:
-      - name: name
+      - name: VPC1_attach
         vpc: VPC1
         subnet: Subnet1
-      - name: name
+      - name: VPC2_attach
         vpc: VPC2
         subnet: Subnet2
-      - name: name
+      - name: VPC3_attach
         vpc: VPC3
         subnet: Subnet3
