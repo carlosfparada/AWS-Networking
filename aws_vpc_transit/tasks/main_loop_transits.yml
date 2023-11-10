@@ -19,11 +19,6 @@
   ansible.builtin.debug:
     msg: "Transit Gateway {{ transit.transit_gateway.transit_gateway_id }}"
 
-- name: Print debug msg
-  ansible.builtin.debug:
-    msg: Transit Gateway '{{ manage_transit_gateway_tgw_result.transit_gateway.transit_gateway_id }}' exists, no updates needed.
-  when: not manage_transit_gateway_tgw_result.changed
-
 - name: Transit Gateway attachment creation
   include_tasks: main_loop_attachments.yml
   loop: "{{ item.attachments }}"
