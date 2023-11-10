@@ -8,7 +8,7 @@
       Name: "{{ item.vpc }}"
     purge_subnets: false
     state: absent
-  register: transit_attachment
+  ignore_errors: true
 
 - name: Wait VPC peering connection to be deleted
   ansible.builtin.pause:
