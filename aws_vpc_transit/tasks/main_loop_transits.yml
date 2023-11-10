@@ -3,7 +3,8 @@
 - name: Create transit gateway "{{ item.name }}"
   community.aws.ec2_transit_gateway:
     asn: "{{ item.asn }}"
-    tags: "{{ item.name }}"
+    tags:
+      Name: "{{ item.name }}"
     description: "Transit Gateway {{ item.name }}"
     state: present
   register: transit
