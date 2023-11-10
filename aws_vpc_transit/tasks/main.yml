@@ -4,6 +4,6 @@
   include_tasks: main_loop_vpcs.yml
   loop: "{{ vpcs | dict2items }}"
 
-- name: Loop for Peerings creation
-  include_tasks: main_loop_peerings.yml
-  loop: "{{ peerings }}"
+- name: Transit Gateway creation
+  include_tasks: main_loop_transit.yml
+  loop: "{{ transits | dict2items }}"
