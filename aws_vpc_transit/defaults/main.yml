@@ -121,7 +121,7 @@ vpcs:
     ec2_instance_name: rhel-3
 
 transits:
-  - name:
+  - name: TGW1
     asn: 65000
     attachments:
       - name: name
