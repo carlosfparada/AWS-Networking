@@ -122,6 +122,7 @@ vpcs:
 
 transits:
   - name: TGW1
+    region: us-east-1
     asn: 65000
     attachments:
       - name: name
