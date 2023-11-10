@@ -4,6 +4,8 @@
   community.aws.ec2_transit_gateway:
     region: "{{ item.region }}"
     asn: "{{ item.asn }}"
+    auto_associate: true
+    auto_propagate: true
     tags:
       Name: "{{ item.name }}"
     description: "Transit Gateway {{ item.name }}"
