@@ -120,10 +120,21 @@ vpcs:
     # Instance 3
     ec2_instance_name: rhel-3
 
-peerings:
-- name: VPC1_VPC2
-  vpc: VPC1
-  peer_vpc: VPC2
-- name: VPC2_VPC3
-  vpc: VPC2
-  peer_vpc: VPC3
+transits:
+  - name: TGW1
+    region: us-east-1
+    asn: 65000
+    attachments:
+      - vpc: VPC1
+        subnet: Subnet1
+        routes:
+          - vpc: VPC2
+      - vpc: VPC2
+        subnet: Subnet2
+        routes:
+          - vpc: VPC1
+          - vpc: VPC3
+      - vpc: VPC3
+        subnet: Subnet3
+        routes:
+          - vpc: VPC2

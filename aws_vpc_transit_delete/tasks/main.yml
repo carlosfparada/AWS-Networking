@@ -2,7 +2,7 @@
 
 - name: Loop for Transit Gateway deletion
   include_tasks: main_loop_transits.yml
-  loop: "{{ peerings }}"
+  loop: "{{ transits }}"
 
 - name: Loop for VPCs deletion
   include_tasks: main_loop_vpcs.yml

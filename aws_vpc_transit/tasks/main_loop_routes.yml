@@ -4,7 +4,6 @@
   amazon.aws.ec2_vpc_route_table:
     vpc_id: "{{ transit_attachment.attachments[0].vpc_id }}"
     region: "{{ vpcs[transit_attachment.attachments[0].tags.Name].ec2_vpc_region }}"
-    #subnets: "{{ subnet.subnets[0].subnet_id }}"
     purge_subnets: no
     purge_routes: no
     tags:
