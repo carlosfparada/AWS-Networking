@@ -17,7 +17,7 @@
   community.aws.ec2_transit_gateway_vpc_attachment:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     transit_gateway: "{{ transit.transit_gateways[0].transit_gateway_id }}"
-    id: "{{ attachment.attachments[0].attachment_id }}"
+    id: "{{ attachment.attachments[0].transit_gateway_attachment_id }}"
     state: absent
   ignore_errors: true
 
