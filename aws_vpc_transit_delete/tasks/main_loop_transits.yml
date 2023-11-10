@@ -16,7 +16,7 @@
 
 - name: Delete transit gateway {{ item.vpc }} -> {{ item.peer_vpc }}
   community.aws.ec2_transit_gateway:
-    transit_gateway_id: '{{ transit.transit_gateway_id }}'
+    transit_gateway_id: '{{ transit.transit_gateways[0].transit_gateway_id }}'
     state: absent
   when: transit | length > 0
   ignore_errors: true
