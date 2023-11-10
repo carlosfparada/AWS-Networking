@@ -1,10 +1,10 @@
 ---
 
-- name: Query Subnets {{ vpcs[item.key].ec2_subnet_name }}
+- name: Query Subnets {{ vpcs[item.vpc].ec2_subnet_name }}
   amazon.aws.ec2_vpc_subnet_info:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     filters:
-      "tag:Name": "{{ vpcs[item.subnet].ec2_subnet_name }}"
+      "tag:Name": "{{ vpcs[item.vpc].ec2_subnet_name }}"
   register: subnet
 
 - name: Create VPC attachment {{ item.name }}
