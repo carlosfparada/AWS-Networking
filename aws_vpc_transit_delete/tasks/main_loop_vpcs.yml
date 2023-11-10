@@ -29,7 +29,6 @@
       "tag:Name": "{{ vpcs[item.key].ec2_instance_name }}"
   ignore_errors: true
 
-
 - name: Delete Security Group {{ vpcs[item.key].ec2_sg_name }}
   amazon.aws.ec2_security_group:
     name: "{{ vpcs[item.key].ec2_sg_name }}"
@@ -46,7 +45,7 @@
   when: vpc.vpcs | length > 0 and subnet.subnets | length > 0
   ignore_errors: true
 
-- name: Delete Route Table rtb.route_tables[0].id
+- name: Delete Route Table {{ rtb.route_tables[0].id }}
   amazon.aws.ec2_vpc_route_table:
     vpc_id: "{{ vpc.vpcs[0].id }}"
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
@@ -56,7 +55,7 @@
   when: vpc.vpcs | length > 0 and rtb.route_tables | length > 0
   ignore_errors: true
 
-- name: Delete Internet Gateway (IGW) {{ vpc.vpcs[0].id }}
+- name: Delete Internet Gateway {{ vpc.vpcs[0].id }}
   amazon.aws.ec2_vpc_igw:
     vpc_id: "{{ vpc.vpcs[0].id }}"
     region: "{{ vpcs[item.key].ec2_vpc_region }}"

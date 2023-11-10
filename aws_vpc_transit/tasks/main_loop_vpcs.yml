@@ -10,7 +10,7 @@
       Name: "{{ vpcs[item.key].ec2_vpc_name }}"
   register: vpc
 
-- name: Create Subnet in VPC {{ vpcs[item.key].ec2_subnet_name }}
+- name: Create Subnet {{ vpcs[item.key].ec2_subnet_name }}
   amazon.aws.ec2_vpc_subnet:
     vpc_id: "{{ vpc.vpc.id }}"
     cidr: "{{ vpcs[item.key].ec2_subnet_cidr }}"
@@ -20,7 +20,7 @@
       Name: "{{ vpcs[item.key].ec2_subnet_name }}"
   register: subnet
 
-- name: Create Internet Gateway (IGW) {{ vpcs[item.key].ec2_igw_name }}
+- name: Create Internet Gateway {{ vpcs[item.key].ec2_igw_name }}
   amazon.aws.ec2_vpc_igw:
     vpc_id: "{{ vpc.vpc.id }}"
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
