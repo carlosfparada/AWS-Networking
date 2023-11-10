@@ -11,6 +11,7 @@
   amazon.aws.ec2_vpc_route_table:
     vpc_id: "{{ transit_attachment.attachments[0].vpc_id }}"
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
+    purge_subnets: no
     purge_routes: no
     tags:
       Name: "{{ vpcs[item.vpc].ec2_rt_name }}"
