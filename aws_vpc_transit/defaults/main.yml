@@ -128,16 +128,16 @@ transits:
       - name: VPC1_attach
         vpc: VPC1
         subnet: Subnet1
-        route:
+        routes:
           - vpc: VPC2
       - name: VPC2_attach
         vpc: VPC2
         subnet: Subnet2
-        route:
+        routes:
           - vpc: VPC1
           - vpc: VPC3
       - name: VPC3_attach
         vpc: VPC3
         subnet: Subnet3
-        route:
+        routes:
           - vpc: VPC2
