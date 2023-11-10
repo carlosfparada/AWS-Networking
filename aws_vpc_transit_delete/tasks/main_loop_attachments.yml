@@ -3,13 +3,22 @@
 - debug: 
     var: transit
 
-- name: Delete Transit VPC attachment {{ item.vpc }}
+- name: Find Transit VPC attachment {{ item.vpc }}
   community.aws.ec2_transit_gateway_vpc_attachment:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
     transit_gateway: "{{ transit.transit_gateways[0].transit_gateway_id }}"
     filters:
       "tag:Name": "{{ item.vpc }}"
-    purge_subnets: false
+  register: attachment
+
+- debug: 
+    var: attachment
+
+- name: Delete Transit VPC attachment {{ item.vpc }}
+  community.aws.ec2_transit_gateway_vpc_attachment:
+    region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
+    transit_gateway: "{{ transit.transit_gateways[0].transit_gateway_id }}"
+    id: "{{ attachment.attachments[0].attachment_id }}"
     state: absent
   ignore_errors: true
 
