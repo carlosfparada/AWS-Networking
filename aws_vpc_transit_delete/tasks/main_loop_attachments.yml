@@ -6,7 +6,6 @@
 - name: Find Transit VPC attachment {{ item.vpc }}
   community.aws.ec2_transit_gateway_vpc_attachment_info:
     region: "{{ vpcs[item.vpc].ec2_vpc_region }}"
-    transit_gateway: "{{ transit.transit_gateways[0].transit_gateway_id }}"
     filters:
       "tag:Name": "{{ item.vpc }}"
   register: attachment
