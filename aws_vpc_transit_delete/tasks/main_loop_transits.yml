@@ -7,9 +7,12 @@
       options.amazon-side-asn: "{{ item.asn }}"
   register: transit
 
-- name: Loop for Transit Attachments deletion
-  include_tasks: main_loop_attachments.yml
-  loop: "{{ item.attachments }}"
+# - name: Loop for Transit Attachments deletion
+#   include_tasks: main_loop_attachments.yml
+#   loop: "{{ item.attachments }}"
+
+- debug:
+    var: transit
 
 - name: Delete transit gateway {{ item.vpc }} -> {{ item.peer_vpc }}
   community.aws.ec2_transit_gateway:
