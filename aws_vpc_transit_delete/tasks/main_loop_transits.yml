@@ -4,7 +4,7 @@
   community.aws.ec2_transit_gateway_info:
     region: "{{ item.region }}"
     filters:
-      Name: "{{ item.name }}"
+      options.amazon-side-asn: "{{ item.asn }}"
   register: transit
 
 - name: Loop for Transit Attachments deletion
