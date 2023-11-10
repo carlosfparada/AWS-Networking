@@ -9,7 +9,7 @@
 
 - name: Loop for Transit Attachments deletion
   include_tasks: main_loop_attachments.yml
-  loop: "{{ items.attachments }}"
+  loop: "{{ item.attachments }}"
 
 - name: Delete transit gateway {{ item.vpc }} -> {{ item.peer_vpc }}
   community.aws.ec2_transit_gateway:
