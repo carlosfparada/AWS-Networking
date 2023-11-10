@@ -1,0 +1,7 @@
+- name: AWS VPN Transit
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - aws_vpc_transit
+  
