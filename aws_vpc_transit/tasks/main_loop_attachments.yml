@@ -19,10 +19,6 @@
     state: present
   register: transit_attachment
 
-- name: Debug Transit Gateway Attachment
-  debug:
-    var: transit_attachment
-
 - name: Transit Gateway attachment route table update
   include_tasks: main_loop_routes.yml
   loop: "{{ item.routes }}"
