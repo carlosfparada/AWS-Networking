@@ -2,6 +2,7 @@
 
 - name: Find transit gateway {{ item.name }}
   community.aws.ec2_transit_gateway_info:
+    region: "{{ item.region }}"
     filters:
       Name: "{{ item.name }}"
   register: transit
