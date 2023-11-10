@@ -5,5 +5,5 @@
   loop: "{{ vpcs | dict2items }}"
 
 - name: Transit Gateway creation
-  include_tasks: main_loop_transit.yml
-  loop: "{{ transits | dict2items }}"
+  include_tasks: main_loop_transits.yml
+  loop: "{{ transits }}"
