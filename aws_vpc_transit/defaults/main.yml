@@ -120,6 +120,9 @@ vpcs:
     # Instance 3
     ec2_instance_name: rhel-3
 
+ec2_rhel_user: "{{ ansible_user }}"
+ec2_rhel_pass: "{{ ansible_password }}"
+
 transits:
   - name: TGW1
     region: us-east-1
