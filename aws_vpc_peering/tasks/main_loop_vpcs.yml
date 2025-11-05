@@ -69,8 +69,10 @@
     key_name: "{{ vpcs[item.key].ec2_key_name }}"
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
     vpc_subnet_id: "{{ subnet.subnet.id }}"
-    network:
-      assign_public_ip: true
+    # network:
+    #   assign_public_ip: true
+    network_interfaces:
+      - assign_public_ip: true         
     tags:
       Name: "{{ vpcs[item.key].ec2_instance_name }}"
     volumes:
