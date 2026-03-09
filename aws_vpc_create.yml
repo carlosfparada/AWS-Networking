@@ -4,5 +4,5 @@
   gather_facts: no
   vars_files: vars/main.yml
   roles:
-    - aws_vpc_peering_delete
+    - aws_vpc_create
   

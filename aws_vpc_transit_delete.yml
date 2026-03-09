@@ -1,7 +1,8 @@
-- name: AWS VPN Transit delete
+- name: AWS VPC Transit delete
   hosts: localhost
   connection: local
   gather_facts: no
+  vars_files: vars/main.yml
   roles:
     - aws_vpc_transit_delete
   

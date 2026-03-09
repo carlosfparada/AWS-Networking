@@ -1,7 +1,8 @@
-- name: AWS VPN Peering
+- name: AWS VPC Peering
   hosts: localhost
   connection: local
   gather_facts: no
+  vars_files: vars/main.yml
   roles:
     - aws_vpc_peering
   

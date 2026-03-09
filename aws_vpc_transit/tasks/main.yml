@@ -1,8 +1,8 @@
 ---
 
-- name: Loop for VPCs creation
-  include_tasks: main_loop_vpcs.yml
-  loop: "{{ vpcs | dict2items }}"
+# - name: Loop for VPCs creation
+#   include_tasks: main_loop_vpcs.yml
+#   loop: "{{ vpcs | dict2items }}"
 
 - name: Transit Gateway creation
   include_tasks: main_loop_transits.yml
