@@ -4,6 +4,6 @@
   include_tasks: main_loop_transits.yml
   loop: "{{ transits }}"
 
-# - name: Loop for VPCs deletion
-#   include_tasks: main_loop_vpcs.yml
-#   loop: "{{ vpcs | dict2items }}"
+- name: Loop for VPCs deletion
+  include_tasks: main_loop_vpcs.yml
+  loop: "{{ vpcs | dict2items }}"
