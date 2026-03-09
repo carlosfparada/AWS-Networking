@@ -1,0 +1,8 @@
+- name: AWS VPC Peering delete
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars_files: vars/main.yml
+  roles:
+    - aws_vpc_delete
+  

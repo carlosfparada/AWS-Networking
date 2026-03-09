@@ -1,0 +1,74 @@
+---
+
+- name: Query VPCs {{ vpcs[item.key].ec2_vpc_name }}
+  amazon.aws.ec2_vpc_net_info:
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
+    filters:
+      "tag:Name": "{{ vpcs[item.key].ec2_vpc_name }}"
+  register: vpc
+
+- name: Query Subnets {{ vpcs[item.key].ec2_subnet_name }}
+  amazon.aws.ec2_vpc_subnet_info:
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
+    filters:
+      "tag:Name": "{{ vpcs[item.key].ec2_subnet_name }}"
+  register: subnet
+
+- name: Query Route Tables {{ vpcs[item.key].ec2_vpc_region }}
+  amazon.aws.ec2_vpc_route_table_info:
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
+    filters:
+      "tag:Name": "{{ vpcs[item.key].ec2_rt_name }}"
+  register: rtb
+
+- name: Terminate RHEL instance {{ vpcs[item.key].ec2_instance_name }}
+  amazon.aws.ec2_instance:
+    state: absent
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
+    filters:
+      "tag:Name": "{{ vpcs[item.key].ec2_instance_name }}"
+  ignore_errors: true
+
+- name: Delete Security Group {{ vpcs[item.key].ec2_sg_name }}
+  amazon.aws.ec2_security_group:
+    name: "{{ vpcs[item.key].ec2_sg_name }}"
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
+    state: absent
+  ignore_errors: true
+
+- name: Delete Subnet {{ subnet.subnets[0].cidr_block }}
+  amazon.aws.ec2_vpc_subnet:
+    vpc_id: "{{ vpc.vpcs[0].id }}"
+    cidr: "{{ subnet.subnets[0].cidr_block }}"
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
+    state: absent
+  when: vpc.vpcs | length > 0 and subnet.subnets | length > 0
+  ignore_errors: true
+
+- name: Delete Route Table {{ rtb.route_tables[0].id }}
+  amazon.aws.ec2_vpc_route_table:
+    vpc_id: "{{ vpc.vpcs[0].id }}"
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
+    route_table_id: "{{ rtb.route_tables[0].id }}"
+    lookup: id
+    state: absent
+  when: vpc.vpcs | length > 0 and rtb.route_tables | length > 0
+  ignore_errors: true
+
+- name: Delete Internet Gateway {{ vpc.vpcs[0].id }}
+  amazon.aws.ec2_vpc_igw:
+    vpc_id: "{{ vpc.vpcs[0].id }}"
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
+    state: absent
+  when: vpc.vpcs | length > 0
+  ignore_errors: true
+
+- name: Delete VPC {{ vpcs[item.key].ec2_vpc_name }}
+  amazon.aws.ec2_vpc_net:
+    name: "{{ vpcs[item.key].ec2_vpc_name }}"
+    region: "{{ vpcs[item.key].ec2_vpc_region }}"
+    cidr_block: "{{ vpc.vpcs[0].cidr_block }}"
+    state: absent
+  when: vpc.vpcs | length > 0
+  ignore_errors: true
+
