@@ -1,3 +1,6 @@
+# Auth
+ec2_rhel_user: "{{ ansible_user }}"
+ec2_rhel_pass: "{{ ansible_password }}"
 
 vpcs:
   # VPC 1
@@ -122,9 +125,6 @@ vpcs:
     ec2_key_name: "KeyPair-Virginia"
     # Instance 3
     ec2_instance_name: rhel-3
-
-ec2_rhel_user: "{{ ansible_user }}"
-ec2_rhel_pass: "{{ ansible_password }}"
 
 # Peerings
 peerings:

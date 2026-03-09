@@ -1,4 +1,4 @@
-- name: AWS VPC Peering delete
+- name: AWS VPC Delete
   hosts: localhost
   connection: local
   gather_facts: no

@@ -1,5 +1,0 @@
-#!/bin/bash
-#sed 's/PasswordAuthentication no/PasswordAuthentication yes/' -i /etc/ssh/sshd_config
-sed 's/PasswordAuthentication no/PasswordAuthentication yes/' -i /etc/ssh/sshd_config.d/50-cloud-init.conf
-systemctl restart sshd
-echo "{{ ec2_rhel_pass }}" | passwd --stdin {{ ec2_rhel_user }}
