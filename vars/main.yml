@@ -145,7 +145,6 @@ transits:
         subnet: Subnet1
         routes:
           - vpc: VPC2
-          - vpc: VPC3
       - vpc: VPC2
         subnet: Subnet2
         routes:
@@ -154,5 +153,4 @@ transits:
       - vpc: VPC3
         subnet: Subnet3
         routes:
-          - vpc: VPC1
           - vpc: VPC2
