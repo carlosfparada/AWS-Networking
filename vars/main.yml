@@ -126,6 +126,7 @@ vpcs:
     # Instance 3
     ec2_instance_name: rhel-3
 
+
 # Peerings
 peerings:
 - name: VPC1_VPC2
