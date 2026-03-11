@@ -134,9 +134,7 @@ peerings:
 - name: VPC2_VPC3
   vpc: VPC2
   peer_vpc: VPC3
-- name: VPC1_VPC3
-  vpc: VPC1
-  peer_vpc: VPC3
+
 
 # Transit Gateway
 transits:
@@ -148,7 +146,6 @@ transits:
         subnet: Subnet1
         routes:
           - vpc: VPC2
-          - vpc: VPC3
       - vpc: VPC2
         subnet: Subnet2
         routes:
@@ -158,4 +155,3 @@ transits:
         subnet: Subnet3
         routes:
           - vpc: VPC2
-          - vpc: VPC1
